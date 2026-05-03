@@ -14,15 +14,9 @@ rules:
   - rule: Regla de consulta de auditoría
     steps:
       - intent: consulta_auditoria
-      - action: call: farmarag_agent
-      - action: utter_consulta_auditoria_result
+      - action: action_call_farmarag
 
   - rule: Regla para fuera de tema
     steps:
       - intent: fuera_tema
       - action: utter_fuera_tema
-
-  - rule: Fallback en consulta de auditoría
-    steps:
-      - intent: consulta_auditoria
-      - action: utter_consulta_auditoria_error

@@ -6,6 +6,9 @@ intents:
   - consulta_auditoria
   - fuera_tema
 
+actions:
+  - action_call_farmarag
+
 responses:
   utter_greeting:
     - text: "Buenos días. Soy el asistente de auditoría farmacéutica. ¿En qué puedo ayudarle?"
@@ -62,8 +65,7 @@ flows:
 
   consulta_auditoria:
     id: consulta_auditoria
-    description: Flujo principal de consulta de auditoría vía A2A
+    description: Flujo principal de consulta de auditoría vía FarmaRAG
     steps:
       - intent: consulta_auditoria
-      - action: call: farmarag_agent
-      - action: utter_consulta_auditoria_result
+      - action: action_call_farmarag

@@ -1,0 +1,75 @@
+version: "3.1"
+
+nlu:
+  - intent: saludo
+    examples: |
+      - Buenos días
+      - Buenas tardes
+      - Buenas noches
+      - Hola
+      - Hello
+      - Buenos Aires
+      - Saludo
+      - ¿Cómo está?
+      - ¿Cómo le va?
+      - Mucho gusto
+      - Encantado
+      - Encantada
+
+  - intent: ayuda
+    examples: |
+      - ayuda
+      - qué puedes hacer
+      - qué funciones tienes
+      - qué conoces
+      - qué sabes
+      - cómo me puedes ayudar
+      - necesito ayuda
+      - necesito información
+      - qué servicios ofreces
+      - qué consultas puedes responder
+      - qué temas conoces
+      - ayúdame
+      - puedes ayudarme
+      - necesito asistencia
+
+  - intent: consulta_auditoria
+    examples: |
+      - ¿Cuáles son las normas de PAMI?
+      - Requisitos para auditorías DIM
+      - Información sobre regulaciones COFAER
+      - Normas de OSER para farmacias
+      - ¿Qué dice la normativa sobre recetas?
+      - Cadenas de frío para medicamentos
+      - Procedimientos de auditoría farmacéutica
+      - Regulaciones para medicamentos especiales
+      - ¿Cuáles son los requisitos de documentación?
+      - Normas sobre almacenamiento de fármacos
+      - Procedimientos de control de calidad
+      - Regulaciones sobre medicamentos genéricos
+      - ¿Qué información necesito para una auditoría?
+      - Requisitos legales para farmacias
+      - Normativas sobre precios de medicamentos
+
+  - intent: fuera_tema
+    examples: |
+      - ¿Qué hora es?
+      - ¿Cómo está el clima?
+      - Cuéntame un chiste
+      - ¿Quién eres?
+      - ¿De dónde eres?
+      - ¿Qué tiempo hace?
+      - Cuéntame sobre ti
+      - Te amo
+      - Me gusta el chocolate
+      - ¿Qué película me recomiendas?
+      - ¿Cuál es tu comida favorita?
+      - ¿Sabes cocinar?
+      - ¿Practicas algún deporte?
+      - ¿Tienes amigos?
+      - ¿Qué hiciste el fin de semana?
+      - ¿Te gusta la música?
+      - Dame un consejo
+      - Predice mi futuro
+      - ¿Cuánto vale el dólar?
+      - ¿Quién ganó el partido?

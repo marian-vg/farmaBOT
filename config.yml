@@ -1,0 +1,31 @@
+recipe: default.v1
+
+language: es
+
+pipeline:
+  - name: WhitespaceTokenizer
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier
+    epochs: 100
+    constrain_similarities: true
+  - name: EntitySynonymMapper
+  - name: ResponseSelector
+    epochs: 100
+
+policies:
+  - name: RulePolicy
+  - name: TEDPolicy
+    epochs: 100
+    constrain_similarities: true
+
+models:
+  - type: LLM
+    provider: ollama
+    model: qwen2.5:0.5b
+    url: http://localhost:11434

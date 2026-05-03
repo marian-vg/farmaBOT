@@ -1,0 +1,8 @@
+action_endpoint:
+  url: http://localhost:5055/webhook
+
+A2A:
+  farmarag_agent:
+    url: http://localhost:8000
+    call_endpoint: /ask
+    health_endpoint: /

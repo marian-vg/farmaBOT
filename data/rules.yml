@@ -1,0 +1,28 @@
+version: "3.1"
+
+rules:
+  - rule: Regla de saludo
+    steps:
+      - intent: saludo
+      - action: utter_greeting
+
+  - rule: Regla de ayuda
+    steps:
+      - intent: ayuda
+      - action: utter_help
+
+  - rule: Regla de consulta de auditoría
+    steps:
+      - intent: consulta_auditoria
+      - action: call: farmarag_agent
+      - action: utter_consulta_auditoria_result
+
+  - rule: Regla para fuera de tema
+    steps:
+      - intent: fuera_tema
+      - action: utter_fuera_tema
+
+  - rule: Fallback en consulta de auditoría
+    steps:
+      - intent: consulta_auditoria
+      - action: utter_consulta_auditoria_error

@@ -1,0 +1,20 @@
+{
+  "embeddings": {
+    "id": "huggingface_embedding_model",
+    "models": [
+      {
+        "provider": "huggingface",
+        "model": "BAAI/bge-small-en-v1.5",
+        "model_kwargs": {
+          "device": "cpu"
+        },
+        "encode_kwargs": {
+          "normalize_embeddings": true
+        }
+      }
+    ]
+  },
+  "num_flows": 20,
+  "turns_to_embed": 1,
+  "should_embed_slots": true
+}

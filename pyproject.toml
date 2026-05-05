@@ -9,4 +9,5 @@ dependencies = [
     "pyyaml>=6.0.3",
     "rasa-pro>=3.16.5",
     "requests>=2.31.0",
+    "sentence-transformers>=5.4.1",
 ]

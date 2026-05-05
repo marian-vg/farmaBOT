@@ -6,11 +6,25 @@ def test_rasa_installed():
     assert rasa.__version__ is not None
 
 
-def test_ollama_model_configured():
+def test_llm_configured():
     import yaml
     with open("config.yml", "r") as f:
         config = yaml.safe_load(f)
-    assert config["models"][0]["model"] == "qwen2.5:0.5b"
+    llm_component = next(
+        (c for c in config["pipeline"] if c.get("name") == "CompactLLMCommandGenerator"),
+        None
+    )
+    assert llm_component is not None
+    assert llm_component["llm"]["model_group"] == "gemini_llm"
+    assert "flow_retrieval" in llm_component
+    assert llm_component["flow_retrieval"]["active"] is False
+    assert llm_component.get("prompt_template") == "prompts/custom-command-template.jinja2"
+
+    import yaml
+    with open("endpoints.yml", "r") as f:
+        endpoints = yaml.safe_load(f)
+    model_groups = {mg["id"] for mg in endpoints.get("model_groups", [])}
+    assert "gemini_llm" in model_groups
 
 
 def test_farmarag_agent_configured():

@@ -1,0 +1,490 @@
+[
+  {
+    "text": "Buenos días",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Buenas tardes",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Buenas noches",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "ayuda",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "qué funciones tienes",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "qué conoces",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Procedimientos de auditoría farmacéutica",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Regulaciones para medicamentos especiales",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Requisitos legales para farmacias",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Cuéntame sobre ti",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Te gusta la música?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Cuánto vale el dólar?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Quién ganó el partido?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Cómo le va?",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Encantado",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Encantada",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "puedes ayudarme",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "necesito asistencia",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Requisitos para auditorías DIM",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Procedimientos de control de calidad",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Normativas sobre precios de medicamentos",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿De dónde eres?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Te amo",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Cuál es tu comida favorita?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Qué hiciste el fin de semana?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Hello",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Buenos Aires",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "cómo me puedes ayudar",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "necesito información",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "qué temas conoces",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Qué dice la normativa sobre recetas?",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Cuáles son los requisitos de documentación?",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Regulaciones sobre medicamentos genéricos",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Cuéntame un chiste",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Me gusta el chocolate",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Practicas algún deporte?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Predice mi futuro",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Saludo",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Mucho gusto",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "necesito ayuda",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "qué servicios ofreces",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "ayúdame",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Cuáles son las normas de PAMI?",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Información sobre regulaciones COFAER",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Normas de OSER para farmacias",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Qué tiempo hace?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Qué película me recomiendas?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Tienes amigos?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Dame un consejo",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Hola",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Cómo está?",
+    "intent": "saludo",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "qué puedes hacer",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "qué sabes",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "qué consultas puedes responder",
+    "intent": "ayuda",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Cadenas de frío para medicamentos",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "Normas sobre almacenamiento de fármacos",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Qué información necesito para una auditoría?",
+    "intent": "consulta_auditoria",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Qué hora es?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Cómo está el clima?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Quién eres?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  },
+  {
+    "text": "¿Sabes cocinar?",
+    "intent": "fuera_tema",
+    "intent_prediction": {
+      "name": "",
+      "confidence": 0.0
+    }
+  }
+]

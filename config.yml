@@ -5,13 +5,15 @@ language: es
 pipeline:
   - name: WhitespaceTokenizer
   - name: RegexFeaturizer
+  - name: CompactLLMCommandGenerator
+    llm:
+      model_group: gemini_llm
+    prompt_template: prompts/custom-command-template.jinja2
+    flow_retrieval:
+      active: false
 
 policies:
+  - name: FlowPolicy
   - name: RulePolicy
 
-models:
-  - type: LLM
-    provider: ollama
-    model: qwen2.5:0.5b
-    url: http://localhost:11434
-assistant_id: 20260503-103401-watery-engine
+assistant_id: farmarag-rasa-calm

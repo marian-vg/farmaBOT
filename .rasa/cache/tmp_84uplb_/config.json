@@ -1,0 +1,23 @@
+{
+  "prompt_template": null,
+  "user_input": null,
+  "llm": {
+    "id": "openai_llm",
+    "models": [
+      {
+        "provider": "openai",
+        "model": "gpt-5.1-2025-11-13"
+      }
+    ]
+  },
+  "flow_retrieval": {
+    "embeddings": {
+      "provider": "openai",
+      "model": "text-embedding-3-large"
+    },
+    "num_flows": 20,
+    "turns_to_embed": 1,
+    "should_embed_slots": true,
+    "active": false
+  }
+}

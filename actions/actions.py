@@ -1,8 +1,9 @@
-from typing import Any, Dict, List
 import logging
+from typing import Any, Dict, List
+
 import requests
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet, Event
+from rasa_sdk.events import SlotSet
 
 logger = logging.getLogger(__name__)
 
@@ -13,14 +14,12 @@ class ActionCallFarmaRAG(Action):
 
     async def run(
         self, dispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ) -> List[Event]:
+    ) -> List[SlotSet]:
         user_message = tracker.latest_message.get("text", "")
 
         try:
             response = requests.post(
-                "http://localhost:8000/ask",
-                json={"question": user_message},
-                timeout=30
+                "http://localhost:8000/ask", json={"question": user_message}, timeout=30
             )
             response.raise_for_status()
             data = response.json()
@@ -32,7 +31,7 @@ class ActionCallFarmaRAG(Action):
 
             return [
                 SlotSet("farmarag_response", answer),
-                SlotSet("provider_used", provider)
+                SlotSet("provider_used", provider),
             ]
 
         except requests.exceptions.Timeout:

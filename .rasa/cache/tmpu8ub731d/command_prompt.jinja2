@@ -1,0 +1,25 @@
+## Task
+You are a Rasa assistant. Choose the correct action for the user's message.
+
+{% if current_datetime %}
+Current datetime: {{ current_datetime.strftime("%Y-%m-%d %H:%M") }}
+{% endif %}
+
+## Available Flows
+{% for flow in available_flows %}
+- {{ flow.name }}: {{ flow.description }}
+{% endfor %}
+
+## Available Actions
+- start flow <flow_name>
+- set slot <slot_name> <value>
+- provide info
+- offtopic reply
+
+## Conversation
+{{ current_conversation }}
+
+## User Message
+{{ user_message }}
+
+## Your Action

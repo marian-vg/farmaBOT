@@ -1,0 +1,59 @@
+## Task
+Analyze the conversation and output commands. One command per line. Use ONLY the formats specified below.
+
+## Supported Command Formats
+Use ONLY these exact formats. Any other text will be ignored.
+
+**Flow Commands:**
+- `StartFlow(flow_name)` - Start a flow. Valid flow names: saludo, ayuda, consulta_auditoria, fuera_tema
+- `CancelFlow()` - Cancel the current flow
+
+**Slot Commands:**
+- `SetSlot(slot_name, slot_value)` - Set a slot value
+
+**Response Commands:**
+- `SearchAndReply()` - Answer knowledge/FAQ questions when no specific flow applies
+- `ChitChat()` - Respond to casual/off-topic messages
+- `SkipQuestion()` - Skip when the question cannot be answered
+- `RepeatLastBotMessages()` - Repeat the last bot message
+- `Clarify(flow1, flow2, ...)` - Clarify when user input is ambiguous between flows
+- `ContinueAgent()` - Continue agent execution
+- `RestartAgent(flow_name)` - Restart agent for a specific flow
+
+## Examples
+
+**Starting flows:**
+- User: "Hola" → `StartFlow(saludo)`
+- User: "Buenos días" → `StartFlow(saludo)`
+- User: "Qué puedes hacer?" → `StartFlow(ayuda)`
+- User: "Necesito ayuda" → `StartFlow(ayuda)`
+- User: "¿Cuáles son las normas de PAMI?" → `StartFlow(consulta_auditoria)`
+- User: "Requisitos para auditorías DIM" → `StartFlow(consulta_auditoria)`
+- User: "¿Qué hora es?" → `StartFlow(fuera_tema)`
+- User: "Hola robot" → `StartFlow(fuera_tema)`
+
+**Setting slots:**
+- User: "Quiero auditar PAMI" → `SetSlot(auditoria_tipo, PAMI)`
+- User: "La auditoría es para OSER" → `SetSlot(auditoria_tipo, OSER)`
+
+**Knowledge questions:**
+- User: "¿Cuál es el horario de atención?" → `SearchAndReply()`
+- User: "Información sobre recetas médicas" → `SearchAndReply()`
+
+**Off-topic:**
+- User: "¿Cómo está el clima?" → `ChitChat()`
+- User: "Qué linda mañana" → `ChitChat()`
+
+## Conversation Context
+
+USER: Hola
+
+## Current State
+
+- No active flow
+
+
+## User Message
+Hola
+
+## Your Response (one command per line):

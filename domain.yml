@@ -1,0 +1,63 @@
+version: "3.1"
+
+intents:
+  - saludo
+  - ayuda
+  - consulta_auditoria
+  - fuera_tema
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+responses:
+  utter_greeting:
+    - text: "Buenos días. Soy el asistente de auditoría farmacéutica. ¿En qué puedo ayudarle?"
+    - text: "Hola. Puedo asistirle con consultas de auditoría farmacéutica. ¿Qué desea revisar?"
+
+  utter_help:
+    - text: |
+        Puedo ayudarle con consultas sobre auditoría farmacéutica, por ejemplo:
+        - normativa PAMI
+        - requisitos DIM
+        - regulaciones COFAER
+        - criterios OSER
+        - recetas, trazabilidad y cadena de frío
+        ¿Qué consulta desea realizar?
+
+  utter_fuera_tema:
+    - text: |
+        Mi alcance está limitado a auditoría farmacéutica y normativa relacionada.
+        Si quiere, puedo ayudarle con PAMI, DIM, COFAER, OSER o requisitos de recetas.
+
+  utter_consulta_auditoria_error:
+    - text: "No pude procesar la consulta de auditoría en este momento. Intente nuevamente con otra formulación."
+
+  utter_backend_unavailable:
+    - text: "No pude conectarme al servicio FarmaRAG. Verifique que el backend esté operativo en el puerto 8000."
+
+  utter_timeout:
+    - text: "La consulta tardó demasiado en responder. Intente nuevamente en unos segundos."
+
+slots:
+  audit_question:
+    type: text
+    initial_value: null
+  farmarag_response:
+    type: text
+    initial_value: null
+  provider_used:
+    type: text
+    initial_value: null
+  fallback_triggered:
+    type: bool
+    initial_value: false
+  correlation_id:
+    type: text
+    initial_value: null
+  last_error_code:
+    type: text
+    initial_value: null
+
+actions:
+  - action_call_farmarag

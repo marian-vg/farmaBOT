@@ -1,0 +1,112 @@
+version: "3.1"
+
+nlu:
+  - intent: saludo
+    examples: |
+      - hola
+      - hola!
+      - buen día
+      - buen dia
+      - buenos días
+      - buenos dias
+      - buenas tardes
+      - buenas noches
+      - qué tal
+      - que tal
+      - hola, cómo estás
+      - hola como estas
+      - un gusto
+      - encantado
+      - necesito comenzar
+      - quisiera hacer una consulta
+      - me gustaría empezar
+      - me gustaria empezar
+
+  - intent: ayuda
+    examples: |
+      - ayuda
+      - necesito ayuda
+      - qué puedes hacer
+      - que puedes hacer
+      - qué podés hacer
+      - que podes hacer
+      - cómo me puedes ayudar
+      - como me puedes ayudar
+      - cómo me ayudás
+      - como me ayudas
+      - qué consultas respondes
+      - que consultas respondes
+      - qué consultas respondés
+      - que consultas respondes vos
+      - qué temas manejas
+      - que temas manejas
+      - qué temas manejás
+      - que temas manejas vos
+      - qué sabés sobre auditoría farmacéutica
+      - que sabes sobre auditoria farmaceutica
+      - explícame tus funciones
+      - explicame tus funciones
+
+  - intent: consulta_auditoria
+    examples: |
+      - cuáles son los requisitos de PAMI para una receta
+      - cuales son los requisitos de PAMI para una receta
+      - qué documentación exige DIM para auditar una dispensa
+      - que documentacion exige DIM para auditar una dispensa
+      - qué dice COFAER sobre la validación de recetas
+      - que dice COFAER sobre la validacion de recetas
+      - cuáles son las normas OSER para recetas electrónicas
+      - cuales son las normas OSER para recetas electronicas
+      - cómo se audita una receta de alto costo
+      - como se audita una receta de alto costo
+      - qué requisitos hay para cadena de frío
+      - que requisitos hay para cadena de frio
+      - qué debe tener una receta para ser válida
+      - que debe tener una receta para ser valida
+      - cuáles son los criterios de auditoría para medicamentos especiales
+      - cuales son los criterios de auditoria para medicamentos especiales
+      - qué normativa aplica a medicamentos oncológicos
+      - que normativa aplica a medicamentos oncologicos
+      - cómo revisar una receta observada por PAMI
+      - como revisar una receta observada por PAMI
+      - requisitos para facturar una receta magistral
+      - qué controles documentales debo hacer en farmacia
+      - que controles documentales debo hacer en farmacia
+      - qué pasa con recetas en papel después de 2026
+      - que pasa con recetas en papel despues de 2026
+      - qué normativa regula la trazabilidad de medicamentos
+      - que normativa regula la trazabilidad de medicamentos
+      - necesito saber si una receta cumple con los requisitos de auditoría
+      - necesito saber si una receta cumple con los requisitos de auditoria
+      - tengo una consulta sobre normativa farmacéutica
+      - tengo una consulta sobre normativa farmaceutica
+      - qué pide la obra social para autorizar esta medicación
+      - que pide la obra social para autorizar esta medicacion
+      - cómo se interpreta esta circular de auditoría
+      - como se interpreta esta circular de auditoria
+
+  - intent: fuera_tema
+    examples: |
+      - qué hora es
+      - que hora es
+      - cómo está el clima
+      - como esta el clima
+      - contame un chiste
+      - cuéntame un chiste
+      - cuentame un chiste
+      - quién eres
+      - quien eres
+      - quién sos
+      - quien sos
+      - de dónde eres
+      - de donde eres
+      - te gusta la música
+      - te gusta la musica
+      - cuál es tu comida favorita
+      - cual es tu comida favorita
+      - qué película recomiendas
+      - que pelicula recomiendas
+      - cuánto vale el dólar
+      - cuanto vale el dolar
+      - quién ganó el partido
+      - quien gano el partido

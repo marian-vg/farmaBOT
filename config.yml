@@ -1,0 +1,21 @@
+recipe: default.v1
+language: es
+assistant_id: farmarag_rasa
+
+pipeline:
+  - name: WhitespaceTokenizer
+  - name: RegexFeaturizer
+  - name: KeywordIntentClassifier
+    case_sensitive: false
+  - name: NLUCommandAdapter
+    user_input:
+      max_characters: 420
+  - name: CompactLLMCommandGenerator
+    llm:
+      model_group: default_llm
+    flow_retrieval:
+      embeddings:
+        model_group: default_embeddings
+
+policies:
+  - name: FlowPolicy

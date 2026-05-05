@@ -1,0 +1,36 @@
+flows:
+  saludo:
+    description: "Saludar al usuario e iniciar la conversación de auditoría farmacéutica."
+    nlu_trigger:
+      - intent:
+          name: saludo
+          confidence_threshold: 0.6
+    steps:
+      - action: utter_greeting
+
+  ayuda:
+    description: "Explicar las capacidades del asistente y los temas de auditoría farmacéutica que puede cubrir."
+    nlu_trigger:
+      - intent:
+          name: ayuda
+          confidence_threshold: 0.6
+    steps:
+      - action: utter_help
+
+  fuera_tema:
+    description: "Responder de forma cortés cuando la consulta no pertenece al dominio de auditoría farmacéutica."
+    nlu_trigger:
+      - intent:
+          name: fuera_tema
+          confidence_threshold: 0.7
+    steps:
+      - action: utter_fuera_tema
+
+  consulta_auditoria:
+    description: "Atender una consulta normativa o de auditoría farmacéutica delegando la respuesta al backend FarmaRAG."
+    nlu_trigger:
+      - intent:
+          name: consulta_auditoria
+          confidence_threshold: 0.6
+    steps:
+      - action: action_call_farmarag

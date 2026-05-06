@@ -4,7 +4,7 @@ flows:
     nlu_trigger:
       - intent:
           name: saludo
-          confidence_threshold: 0.6
+          confidence_threshold: 0.5
     steps:
       - action: utter_greeting
 
@@ -13,7 +13,7 @@ flows:
     nlu_trigger:
       - intent:
           name: ayuda
-          confidence_threshold: 0.6
+          confidence_threshold: 0.5
     steps:
       - action: utter_help
 
@@ -22,7 +22,7 @@ flows:
     nlu_trigger:
       - intent:
           name: fuera_tema
-          confidence_threshold: 0.7
+          confidence_threshold: 0.5
     steps:
       - action: utter_fuera_tema
 
@@ -31,6 +31,6 @@ flows:
     nlu_trigger:
       - intent:
           name: consulta_auditoria
-          confidence_threshold: 0.6
+          confidence_threshold: 0.5
     steps:
       - action: action_call_farmarag

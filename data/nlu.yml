@@ -21,6 +21,19 @@ nlu:
       - quisiera hacer una consulta
       - me gustaría empezar
       - me gustaria empezar
+      - hello
+      - hi there
+      - buenas
+      - qué onda
+      - que onda
+      - cómo va
+      - como va
+      - nos vemos
+      - hasta luego
+      - me llamo
+      - soy nuevo aquí
+      - tengo una duda
+      - vengo a consultar
 
   - intent: ayuda
     examples: |
@@ -46,6 +59,20 @@ nlu:
       - que sabes sobre auditoria farmaceutica
       - explícame tus funciones
       - explicame tus funciones
+      - ayúdame con una consulta
+      - ayudame con una consulta
+      - qué servicios ofreces
+      - que servicios ofreces
+      - cómo funcionan tus servicios
+      - como funcionan tus servicios
+      - necesito información
+      - necesito info
+      - qué es esto
+      - que es esto
+      - para qué sirven las circulares
+      - para que sirven las circulares
+      - qué tipo de ayuda ofrecen
+      - me pueden ayudar
 
   - intent: consulta_auditoria
     examples: |
@@ -84,6 +111,19 @@ nlu:
       - que pide la obra social para autorizar esta medicacion
       - cómo se interpreta esta circular de auditoría
       - como se interpreta esta circular de auditoria
+      - Circular 4 COFAER qué dice
+      - requisitos receta AME
+      - receta observada qué hacer
+      - validación de recetas PAMI
+      - normas OSER 2026
+      - documentación necesaria para auditoría
+      - cómo hacer una auditoría de receta
+      - criterios de aceptación de obras sociales
+      - medicamentos especiales normativas
+      - cadena de frío药品低温保存
+      - receta electrónica funciona
+      - cómo validar una receta
+      - qué necesito para una receta de PAMI
 
   - intent: fuera_tema
     examples: |
@@ -105,8 +145,27 @@ nlu:
       - cuál es tu comida favorita
       - cual es tu comida favorita
       - qué película recomiendas
-      - que pelicula recomiendas
+      - que pelicula recomendas
       - cuánto vale el dólar
       - cuanto vale el dolar
       - quién ganó el partido
       - quien gano el partido
+      - cuánto mide el monte everest
+      - cuanto mide el monte everest
+      - cómo está el dólar hoy
+      - como esta el dolar hoy
+      - qué tiempo hace
+      - que tiempo hace
+      - quién es el presidente
+      - quien es el presidente
+      - noticias de última hora
+      - noticias de ultima hora
+      - me puedes ayudar con matemáticas
+      - cuánto es 2+2
+      - me gusta el chocolate
+      - cuál es tu color favorito
+      - recetas de cocina
+      - cómo hacer una torta
+      -Jeffrey epstein está vivo
+      -quién descubrió américa
+      - historia del mundo

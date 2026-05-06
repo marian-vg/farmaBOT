@@ -1,59 +1,176 @@
-# FarmaRAG Rasa Orchestrator
+# Farmarag-Rasa Chatbot
 
-Minimal Rasa CALM assistant in Spanish that routes pharmacy-auditing queries to the existing FarmaRAG FastAPI backend.
+Chatbot de auditoría farmacéutica construido con Rasa CALM que orquestra consultas hacia el backend FarmaRAG.
 
-## Architecture
+## Arquitectura
 
-- Rasa server: `http://localhost:5005`
-- Rasa action server: `http://localhost:5055`
-- FarmaRAG backend: `http://localhost:8000`
-
-## Required Environment
-
-Before training or running the assistant, set:
-
-- `RASA_LICENSE`: required by the installed Rasa Pro build
-
-## Files
-
-- `config.yml` - CALM + NLU pipeline
-- `domain.yml` - responses, slots, actions
-- `flows.yml` - flow definitions and NLU triggers
-- `data/nlu.yml` - Spanish intent examples
-- `actions/actions.py` - FarmaRAG integration
-- `credentials.yml` - REST channel
-- `endpoints.yml` - action server and LLM model group
-
-## Run Sequence
-
-1. Start FarmaRAG on port `8000`.
-2. Export `RASA_LICENSE` and make sure `GEMINI_API_KEY` is available (for example through `.env`).
-3. Train: `rasa train`
-4. Start action server: `rasa run actions`
-5. Start Rasa: `rasa run --enable-api --cors "*" --inspect`
-
-The current configuration uses Gemini models already aligned with the FarmaRAG backend:
-
-- command generator: `models/gemini-3.1-flash-lite-preview`
-- flow retrieval embeddings: `models/gemini-embedding-001`
-
-## Current Status
-
-The project scaffold is in place, but runtime validation is blocked until:
-
-1. `RASA_LICENSE` is available.
-2. FarmaRAG is running locally.
-
-## Validation Completed
-
-- YAML syntax for all assistant files is valid.
-- The custom action module imports successfully in the current virtual environment.
-
-## Critical Runtime Blocker
-
-Running `rasa train` currently stops immediately with:
-
-```text
-license.not_found.error
-A Rasa license is required. Please set the environment variable `RASA_LICENSE` to a valid license string.
 ```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  Frontend       │     │  Rasa Server    │     │  FarmaRAG       │
+│  (Svelte :5174) │────▶│  (CALM :5005)  │────▶│  (RAG :8000)    │
+└─────────────────┘     └────────┬────────┘     └─────────────────┘
+                                │
+                                ▼
+                       ┌─────────────────┐
+                       │  Action Server  │
+                       │  (:5055)        │
+                       └─────────────────┘
+```
+
+| Servicio | Puerto | Descripción |
+|----------|--------|-------------|
+| Frontend | `5174` | Interfaz web del chatbot (Svelte 5) |
+| Rasa server | `5005` | Orquestador CALM + API REST |
+| Action server | `5055` | Ejecuta `action_call_farmarag` |
+| FarmaRAG | `8000` | Backend RAG (FastAPI + Chroma + LLM) |
+
+## Requisitos
+
+- Python 3.10+
+- Node.js 20+
+- Rasa Pro license (`RASA_LICENSE`)
+- API key de Gemini (`GEMINI_API_KEY`) — o modelo Ollama local
+
+## Instalación
+
+### 1. Entorno Python
+
+```bash
+# Crear y activar entorno virtual
+python -m venv .venv
+.\.venv\Scripts\activate      # Windows
+# source .venv/bin/activate   # Linux/macOS
+
+# Instalar dependencias
+pip install -r requirements.txt
+pip install -r requirements-test.txt
+```
+
+### 2. Entorno Frontend
+
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+### 3. Variables de entorno
+
+Crear archivo `.env` o exportar las siguientes variables:
+
+```bash
+export RASA_LICENSE="tu-licencia-aqui"
+export GEMINI_API_KEY="tu-api-key-aqui"
+```
+
+## Levantar el sistema
+
+Se necesitan **4 servicios** corriendo simultáneamente:
+
+### Terminal 1 — FarmaRAG (backend RAG)
+
+```bash
+cd ../farmaRAG
+python server.py
+```
+
+### Terminal 2 — Rasa Action Server
+
+```bash
+rasa run actions
+```
+
+### Terminal 3 — Rasa Server
+
+```bash
+rasa run --enable-api --cors "*" --inspect
+```
+
+### Terminal 4 — Frontend
+
+```bash
+cd frontend
+npm run dev
+```
+
+Una vez iniciado, acceder al chatbot en: **http://localhost:5174**
+
+## Uso del Chatbot
+
+El chatbot responde consultas sobre normativas farmacéuticas:
+
+- **PAMI** — Coberturas, medicamentos esenciales, recetas
+- **DIM** — Requisitos de documentación y habilitación
+- **COFAER** — Normativas del Consejo Profesional de Farmacéuticos
+- **OSER** — Criterios de la obra social
+- **Trazabilidad** — Sistema de trazabilidad de medicamentos
+- **Cadena de frío** — Control de temperatura en almacenamiento
+
+### Ejemplos de consulta
+
+- "¿Cuáles son los requisitos para la cobertura de medicamentos de PAMI?"
+- "¿Qué documentación necesito para gestionar una receta DEX?"
+- "¿Cómo funciona el sistema de trazabilidad para medicamentos oncológicos?"
+
+## Estructura del proyecto
+
+```
+farmarag-rasa/
+├── frontend/                 # Chatbot frontend (Svelte 5)
+│   ├── src/
+│   │   ├── App.svelte
+│   │   ├── components/       # PresentationPanel, ChatWindow, etc.
+│   │   └── lib/             # rasaClient, toast, types
+│   └── package.json
+├── actions/
+│   └── actions.py            # ActionCallFarmaRAG
+├── data/
+│   └── nlu.yml              # Training data (intents en español)
+├── models/                   # Modelo entrenado de Rasa
+├── config.yml               # Pipeline CALM + NLU
+├── domain.yml               # Intents, responses, slots, flows
+├── endpoints.yml            # Action server + LLM config
+├── credentials.yml           # REST channel
+└── README.md                 # Este archivo
+```
+
+## Solución de problemas
+
+### Error CORS en el frontend
+
+Si el navegador bloquea requests, verificar que Rasa se ejecutó con `--cors "*"`:
+
+```bash
+rasa run --enable-api --cors "*" --inspect
+```
+
+### Error 500 al enviar mensaje
+
+1. Verificar que FarmaRAG esté corriendo en `:8000`
+2. Revisar logs de errores en `farmaRAG/logs/failed_queries.jsonl`
+3. Verificar que `GEMINI_API_KEY` esté configurada correctamente
+
+### Rasa no responde
+
+1. Verificar que el action server esté corriendo en `:5055`
+2. Verificar que el modelo esté entrenado: `rasa train`
+3. Revisar logs en `rasa_err.log`
+
+## Docker (Próximamente)
+
+El soporte para Docker está en desarrollo. Una vez implementado, será posible levantar todo el sistema con un solo comando:
+
+```bash
+docker compose up
+```
+
+Próximamente se agregará el archivo `docker-compose.yml` con todos los servicios configurados.
+
+## Configuración de modelos
+
+El orchestrator usa modelos Gemini configurados en `endpoints.yml`:
+
+- **Command generator**: `gemini-3.1-flash-lite-preview`
+- **Flow retrieval embeddings**: `gemini-embedding-001`
+
+Para usar Ollama local, modificar `src/auditor.py` en FarmaRAG y configurar el provider correspondiente.

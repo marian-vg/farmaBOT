@@ -39,6 +39,9 @@ responses:
   utter_timeout:
     - text: "La consulta tardó demasiado en responder. Intente nuevamente en unos segundos."
 
+  utter_ask_continue_conversation:
+    - text: ""
+
 slots:
   audit_question:
     type: text

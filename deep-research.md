@@ -387,12 +387,6 @@ Rasa → LiteLLM → Gemini API → Response
            └── Wrapper unificado para múltiples providers
 ```
 
-### 6.4 API Key y Authentication
-
-```bash
-GEMINI_API_KEY=AIzaSyCx4H6k2WERyL3-j11udVl6slOjhnIPhaA
-```
-
 La API key está configurada en `.env` y se pasa como variable de entorno.
 
 ---

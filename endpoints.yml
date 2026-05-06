@@ -5,9 +5,9 @@ model_groups:
   - id: default_llm
     models:
       - provider: gemini
-        model: models/gemini-3.1-flash-lite-preview
+        model: gemini-2.5-flash
         api_key: ${GEMINI_API_KEY}
-        timeout: 10
+        timeout: 15
   - id: default_embeddings
     models:
       - provider: ollama

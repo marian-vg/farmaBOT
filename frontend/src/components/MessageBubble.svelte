@@ -9,7 +9,7 @@
     senderName?: string;
   }
 
-  let { message, senderName = 'Farmarag' }: Props = $props();
+  let { message, senderName = 'Farmy' }: Props = $props();
 
   function renderMarkdown(content: string): string {
     return marked.parse(content, { async: false }) as string;

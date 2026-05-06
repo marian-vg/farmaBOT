@@ -4,10 +4,11 @@
   interface Props {
     value: string;
     isLoading: boolean;
+    isClosed: boolean;
     onSend: (message: string) => void;
   }
 
-  let { value = $bindable(''), isLoading, onSend }: Props = $props();
+  let { value = $bindable(''), isLoading, isClosed, onSend }: Props = $props();
 
   function handleSubmit() {
     if (!value.trim() || isLoading) return;
@@ -41,7 +42,7 @@
         oninput={handleInput}
         placeholder="Escribe tu consulta..."
         rows="1"
-        disabled={isLoading}
+        disabled={isLoading || isClosed}
         class="w-full bg-transparent border-none outline-none focus:ring-0 resize-none text-sm text-slate-800 p-4 pr-12 min-h-[56px] max-h-[120px] placeholder:text-slate-400 disabled:opacity-50"
       ></textarea>
       <div class="absolute right-2 bottom-2 flex items-center gap-1">

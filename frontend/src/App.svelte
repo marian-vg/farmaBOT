@@ -6,32 +6,45 @@
   import ChatWindow from './components/ChatWindow.svelte';
   import ChatInput from './components/ChatInput.svelte';
   import Toast from './components/Toast.svelte';
+  import HistoryDrawer from './components/HistoryDrawer.svelte';
   import { rasaClient } from './lib/rasaClient';
+  import { historyClient } from './lib/historyClient';
   import { show } from './lib/toast.svelte';
   import type { Message } from './lib/types';
   import { onMount } from 'svelte';
 
-  let messages = $state<Message[]>([
-    {
-      role: 'assistant',
-      content: '**Buenos días.** Soy el asistente de auditoría farmacéutica.\n\nPuedo ayudarle con consultas sobre **PAMI**, **DIM**, **COFAER**, **OSER**, recetas, trazabilidad y cadena de frío.\n\n ¿Qué desea revisar?',
-    },
-  ]);
+  const WELCOME_MESSAGE: Message = {
+    role: 'assistant',
+    content: '**Buenos días.** Soy el asistente de auditoría farmacéutica.\n\nPuedo ayudarle con consultas sobre **PAMI**, **DIM**, **COFAER**, **OSER**, recetas, trazabilidad y cadena de frío.\n\n ¿Qué desea revisar?',
+  };
+
+  const INACTIVITY_TIMEOUT_MS = 60_000;
+  const RATE_LIMIT_MAX_REQUESTS = 8;
+  const RATE_LIMIT_WINDOW_MS = 60_000;
+
+  let messages = $state<Message[]>([WELCOME_MESSAGE]);
   let input = $state('');
   let isLoading = $state(false);
-  let isOnline = $state(false);
+  let isOnline = $state(true);
+  let showHistoryDrawer = $state(false);
+  let userMessagesCount = $state(0);
+  let isClosed = $state(false);
+  let inactivityTimer: ReturnType<typeof setTimeout> | null = null;
+  let requestTimestamps: number[] = [];
 
-  onMount(async () => {
-    isOnline = await rasaClient.checkHealth();
-    if (!isOnline) {
-      show('Rasa no está disponible. Verifique que esté ejecutándose en el puerto 5005.', 'error');
-    }
-  });
+  function handleLoadConversation(msgs: Message[]) {
+    messages = msgs;
+    userMessagesCount = msgs.filter(m => m.role === 'user').length;
+  }
 
   async function handleSend(messageText: string) {
-    if (!messageText.trim() || isLoading) return;
+    if (!messageText.trim() || isLoading || isClosed) return;
+    if (!checkRateLimit()) return;
+
+    resetInactivityTimer();
 
     messages = [...messages, { role: 'user', content: messageText }];
+    userMessagesCount++;
     input = '';
     isLoading = true;
 
@@ -69,29 +82,106 @@
     handleSend(question);
   }
 
-  function handleExport() {
-    show('Exportar consulta - funcionalidad pendiente', 'info');
+  function resetInactivityTimer() {
+    if (inactivityTimer) clearTimeout(inactivityTimer);
+    if (!isClosed) inactivityTimer = setTimeout(handleInactivityTimeout, INACTIVITY_TIMEOUT_MS);
+  }
+
+  function handleInactivityTimeout() {
+    isClosed = true;
+    isLoading = false;
+    if (inactivityTimer) clearTimeout(inactivityTimer);
+    show('Sesión cerrada por inactividad', 'info');
+  }
+
+  function handleContinue() {
+    isClosed = false;
+    requestTimestamps = [];
+    resetInactivityTimer();
+  }
+
+  function checkRateLimit(): boolean {
+    const now = Date.now();
+    requestTimestamps = requestTimestamps.filter(t => now - t < RATE_LIMIT_WINDOW_MS);
+    requestTimestamps.push(now);
+    if (requestTimestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
+      isClosed = true;
+      isLoading = false;
+      if (inactivityTimer) clearTimeout(inactivityTimer);
+      show('Demasiadas solicitudes. Sesión cerrada por rate limit.', 'error');
+      return false;
+    }
+    return true;
   }
 
   function handleFinalize() {
-    show('Finalizar consulta - funcionalidad pendiente', 'info');
+    rasaClient.resetSession();
+    messages = [WELCOME_MESSAGE];
+    userMessagesCount = 0;
+    input = '';
+    isLoading = false;
+    isClosed = false;
+    requestTimestamps = [];
+    resetInactivityTimer();
+    show('Nueva conversación iniciada', 'info');
   }
+
+  async function handleGuardar() {
+    if (userMessagesCount === 0) return;
+    try {
+      await historyClient.saveConversation(rasaClient.getSenderId(), messages);
+      show('Conversación guardada correctamente', 'success');
+    } catch {
+      show('Error al guardar la conversación', 'error');
+    }
+  }
+
+  onMount(() => {
+    function handleActivity() {
+      if (!isClosed) resetInactivityTimer();
+    }
+
+    document.addEventListener('mousemove', handleActivity);
+    document.addEventListener('keydown', handleActivity);
+    document.addEventListener('click', handleActivity);
+
+    resetInactivityTimer();
+
+    return () => {
+      document.removeEventListener('mousemove', handleActivity);
+      document.removeEventListener('keydown', handleActivity);
+      document.removeEventListener('click', handleActivity);
+      if (inactivityTimer) clearTimeout(inactivityTimer);
+    };
+  });
 </script>
 
 <Toast />
 
-<div class="flex h-screen bg-slate-50 overflow-hidden">
-  <NavigationSidebar onOptionClick={handleOptionClick} {isOnline} />
+<HistoryDrawer
+  isOpen={showHistoryDrawer}
+  onClose={() => showHistoryDrawer = false}
+  onLoadConversation={handleLoadConversation}
+/>
 
-  <div class="flex-1 flex flex-col h-full w-full md:pl-96">
+<div class="flex h-screen bg-slate-50 overflow-hidden">
+  <NavigationSidebar onOptionClick={handleOptionClick} {isOnline} onHistorialClick={() => showHistoryDrawer = true} />
+
+  <div class="flex-1 flex flex-col h-full w-full md:pl-[30%]">
     <MobileTopNav />
-    <ChatHeader onExport={handleExport} onFinalize={handleFinalize} />
+    <ChatHeader
+      onFinalize={handleFinalize}
+      onGuardar={handleGuardar}
+      onContinue={handleContinue}
+      showGuardar={userMessagesCount > 0}
+      showContinue={isClosed}
+    />
 
     <div class="flex-1 flex flex-col min-h-0 pt-14 md:pt-0">
       <ChatWindow {messages} {isLoading} />
     </div>
 
-    <ChatInput bind:value={input} {isLoading} onSend={handleSend} />
+    <ChatInput bind:value={input} {isLoading} isClosed={isClosed} onSend={handleSend} />
   </div>
 
   <MobileBottomNav />

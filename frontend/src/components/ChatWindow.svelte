@@ -52,7 +52,7 @@
 
   {#if isLoading}
     <div class="flex flex-col gap-1 max-w-[80%] self-start">
-      <span class="text-[11px] text-slate-400 ml-2">Farmarag</span>
+      <span class="text-[11px] text-slate-400 ml-2">Farmy</span>
       <div class="flex items-center gap-3 p-4 bg-white rounded-2xl rounded-tl-md border border-slate-200 shadow-sm">
         <div class="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style="animation-delay: 0ms"></div>
         <div class="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style="animation-delay: 150ms"></div>

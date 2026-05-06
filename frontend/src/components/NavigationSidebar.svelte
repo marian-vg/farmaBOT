@@ -7,9 +7,10 @@
   interface Props {
     onOptionClick: (question: string) => void;
     isOnline: boolean;
+    onHistorialClick: () => void;
   }
 
-  let { onOptionClick, isOnline }: Props = $props();
+  let { onOptionClick, isOnline, onHistorialClick }: Props = $props();
 
   const optionCards: OptionCardType[] = [
     {
@@ -38,7 +39,7 @@
   const sessionId = rasaClient.getSenderId().slice(0, 8);
 </script>
 
-<aside class="hidden md:flex flex-col fixed left-0 top-0 h-screen w-[380px] bg-white border-r border-slate-100 z-40 p-5">
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-screen w-[30%] bg-white border-r border-slate-100 z-40 p-5">
   <!-- Header & Branding -->
   <div class="flex items-center justify-between mb-6">
     <div class="flex items-center gap-3">
@@ -51,8 +52,8 @@
       </div>
     </div>
     <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200">
-      <span class="w-2 h-2 rounded-full {isOnline ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}" style={isOnline ? 'box-shadow: 0 0 6px rgba(16,185,129,0.5);' : ''}></span>
-      <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-wider">{isOnline ? 'Online' : 'Offline'}</span>
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" style="box-shadow: 0 0 6px rgba(16,185,129,0.5);"></span>
+      <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-wider">Online</span>
     </div>
   </div>
 
@@ -62,7 +63,7 @@
       <Home size={20} />
       <span>Inicio</span>
     </button>
-    <button class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all text-slate-600 hover:bg-slate-100">
+    <button onclick={onHistorialClick} class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all text-slate-600 hover:bg-slate-100">
       <ClipboardList size={20} />
       <span>Historial</span>
     </button>

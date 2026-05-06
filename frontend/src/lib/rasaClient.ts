@@ -15,6 +15,10 @@ export class RasaClient {
     return this.senderId;
   }
 
+  resetSession(): void {
+    this.senderId = crypto.randomUUID();
+  }
+
   async sendMessage(message: string): Promise<RasaResponse[]> {
     const payload: RasaMessagePayload = {
       sender: this.senderId,

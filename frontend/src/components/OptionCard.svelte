@@ -16,12 +16,12 @@
 
 <button
   onclick={handleClick}
-  class="group w-full text-left p-4 rounded-xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden"
+  class="group w-[95%] text-left p-3 rounded-xl border border-slate-200 bg-white hover:bg-teal-50 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 mx-auto my-1.5"
 >
-  <div class="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity from-teal-500 to-emerald-500"></div>
+  
 
-  <div class="relative flex items-start gap-4">
-    <div class="flex-shrink-0 p-2.5 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-500 text-white shadow-lg">
+  <div class="relative flex items-start gap-3 ">
+    <div class="flex-shrink-0 p-2 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-500 text-white shadow-lg">
       {#if card.icon === 'pill'}
         <FileText size={22} />
       {:else if card.icon === 'file'}
@@ -37,7 +37,7 @@
       {/if}
     </div>
     <div class="flex-1 min-w-0">
-      <h3 class="font-bold text-slate-800 text-sm mb-1 group-hover:text-teal-700 transition-colors">
+      <h3 class="font-bold text-slate-800 text-sm mb-1 group-hover:text-teal-700 transition-colors duration-300">
         {card.title}
       </h3>
       <p class="text-xs text-slate-500 leading-relaxed">{card.description}</p>

@@ -7,7 +7,7 @@ model_groups:
       - provider: gemini
         model: gemini-2.5-flash
         api_key: ${GEMINI_API_KEY}
-        timeout: 15
+        timeout: 60
   - id: default_embeddings
     models:
       - provider: ollama

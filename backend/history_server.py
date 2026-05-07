@@ -50,6 +50,14 @@ def init_db() -> None:
                     FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
                 )
             ''')
+            db.execute('''
+                CREATE TABLE IF NOT EXISTS user_preferences (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    key TEXT UNIQUE NOT NULL,
+                    value TEXT NOT NULL,
+                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+            ''')
             db.commit()
 
 
@@ -159,6 +167,31 @@ def delete_conversation(conversation_id: int):
     db.execute('DELETE FROM conversations WHERE id = ?', (conversation_id,))
     db.commit()
 
+    return jsonify({'success': True})
+
+
+@app.route('/api/preferences/<key>', methods=['GET'])
+def get_preference(key: str):
+    db = get_db()
+    cursor = db.execute('SELECT value FROM user_preferences WHERE key = ?', (key,))
+    row = cursor.fetchone()
+    if row is None:
+        return jsonify({'value': None})
+    return jsonify({'value': row['value']})
+
+
+@app.route('/api/preferences/<key>', methods=['PUT'])
+def set_preference(key: str):
+    data = request.get_json()
+    if not data or 'value' not in data:
+        return jsonify({'error': 'Missing value'}), 400
+
+    db = get_db()
+    db.execute('''
+        INSERT INTO user_preferences (key, value) VALUES (?, ?)
+        ON CONFLICT(key) DO UPDATE SET value = ?, updated_at = CURRENT_TIMESTAMP
+    ''', (key, data['value'], data['value']))
+    db.commit()
     return jsonify({'success': True})
 
 

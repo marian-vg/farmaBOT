@@ -3,6 +3,7 @@
   import { X, Trash2, ChevronLeft, ChevronRight, Clock, Save } from 'lucide-svelte';
   import { historyClient, type ConversationSummary, type ConversationsResponse } from '../lib/historyClient';
   import type { Message } from '../lib/types';
+  import ConfirmDeleteModal from './ConfirmDeleteModal.svelte';
 
   interface Props {
     isOpen: boolean;
@@ -19,6 +20,18 @@
   let page = $state(1);
   let totalPages = $state(1);
   let deletingId = $state<number | null>(null);
+  let showConfirmModal = $state(false);
+  let pendingDeleteId = $state<number | null>(null);
+  let skipDeleteConfirm = $state(false);
+
+  async function loadSkipPreference() {
+    try {
+      const val = await historyClient.getPreference('skip_delete_confirm');
+      skipDeleteConfirm = val === 'true';
+    } catch {
+      skipDeleteConfirm = false;
+    }
+  }
 
   async function loadConversations() {
     isLoading = true;
@@ -45,7 +58,15 @@
   }
 
   async function handleDelete(id: number) {
-    if (!confirm('¿Eliminar esta conversación?')) return;
+    if (skipDeleteConfirm) {
+      await performDelete(id);
+      return;
+    }
+    pendingDeleteId = id;
+    showConfirmModal = true;
+  }
+
+  async function performDelete(id: number) {
     deletingId = id;
     try {
       await historyClient.deleteConversation(id);
@@ -55,6 +76,22 @@
     } finally {
       deletingId = null;
     }
+  }
+
+  function handleConfirmDelete(dontAskAgain: boolean) {
+    if (pendingDeleteId === null) return;
+    if (dontAskAgain) {
+      historyClient.setPreference('skip_delete_confirm', 'true').catch(() => {});
+      skipDeleteConfirm = true;
+    }
+    performDelete(pendingDeleteId);
+    showConfirmModal = false;
+    pendingDeleteId = null;
+  }
+
+  function handleCancelDelete() {
+    showConfirmModal = false;
+    pendingDeleteId = null;
   }
 
   async function handleSortChange() {
@@ -90,6 +127,7 @@
   $effect(() => {
     if (isOpen) {
       loadConversations();
+      loadSkipPreference();
     }
   });
 </script>
@@ -195,3 +233,9 @@
     </aside>
   </div>
 {/if}
+
+<ConfirmDeleteModal
+  isOpen={showConfirmModal}
+  onConfirm={handleConfirmDelete}
+  onCancel={handleCancelDelete}
+/>

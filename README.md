@@ -37,6 +37,7 @@ Chatbot de auditoría farmacéutica construido con Rasa CALM que orquestra consu
 - Node.js 20+
 - Rasa Pro license (`RASA_LICENSE`)
 - API key de Gemini (`GEMINI_API_KEY`) — o modelo Ollama local
+- Clonar el repositorio del RAG ("git clone https://github.com/marian-vg/RAG-project.git")
 
 ## Instalación
 
@@ -90,7 +91,7 @@ rasa run actions
 ### Terminal 3 — Rasa Server
 
 ```bash
-rasa run --enable-api --cors "*" --inspect
+rasa run --enable-api --cors "*"
 ```
 
 ### Terminal 4 — History API
@@ -117,8 +118,6 @@ El chatbot responde consultas sobre normativas farmacéuticas:
 - **DIM** — Requisitos de documentación y habilitación
 - **COFAER** — Normativas del Consejo Profesional de Farmacéuticos
 - **OSER** — Criterios de la obra social
-- **Trazabilidad** — Sistema de trazabilidad de medicamentos
-- **Cadena de frío** — Control de temperatura en almacenamiento
 
 ### Ejemplos de consulta
 
@@ -155,14 +154,8 @@ farmarag-rasa/
 Si el navegador bloquea requests, verificar que Rasa se ejecutó con `--cors "*"`:
 
 ```bash
-rasa run --enable-api --cors "*" --inspect
+rasa run --enable-api --cors "*"
 ```
-
-### Error 500 al enviar mensaje
-
-1. Verificar que FarmaRAG esté corriendo en `:8000`
-2. Revisar logs de errores en `farmaRAG/logs/failed_queries.jsonl`
-3. Verificar que `GEMINI_API_KEY` esté configurada correctamente
 
 ### Rasa no responde
 
@@ -201,7 +194,7 @@ cp .env.example .env
 
 ### Sobre las credenciales
 
-Solo se necesita un archivo `.env` en la raíz de `farmarag-rasa/`. No es necesario tener `.env` en el repositorio `farmaRAG/`.
+Solo se necesita un archivo `.env` en la raíz de `farmarag-rasa/`.
 
 Docker Compose lee las variables del `.env` y las pasa automáticamente a cada servicio que las necesite:
 
@@ -219,7 +212,7 @@ Docker Compose lee las variables del `.env` y las pasa automáticamente a cada s
 docker compose up --build
 ```
 
-**Primera vez:** El servicio `rasa` ejecutará `rasa train` automáticamente (puede tardar 10-30 minutos).
+**Primera vez:** El servicio `rasa` ejecutará `rasa train` automáticamente.
 
 **Veces siguientes:** El modelo persistido en el volumen `rasa_models` se reutiliza — el entrenamiento se omite.
 
@@ -277,7 +270,7 @@ farmarag-rasa/
 
 El orchestrator usa modelos Gemini configurados en `endpoints.yml`:
 
-- **Command generator**: `gemini-3.1-flash-lite-preview`
+- **Command generator**: `gemini-2.5-flash-preview`
 - **Flow retrieval embeddings**: `gemini-embedding-001`
 
 Para usar Ollama local, modificar `src/auditor.py` en FarmaRAG y configurar el provider correspondiente.

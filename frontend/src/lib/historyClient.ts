@@ -77,6 +77,34 @@ export class HistoryClient {
       throw new Error(`History API error: ${response.status} ${response.statusText}`);
     }
   }
+
+  async getPreference(key: string): Promise<string | null> {
+    const url = `${HISTORY_API_URL}/preferences/${encodeURIComponent(key)}`;
+    const response = await fetch(url, {
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Preferences API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.value;
+  }
+
+  async setPreference(key: string, value: string): Promise<void> {
+    const url = `${HISTORY_API_URL}/preferences/${encodeURIComponent(key)}`;
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ value }),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Preferences API error: ${response.status} ${response.statusText}`);
+    }
+  }
 }
 
 export const historyClient = new HistoryClient();

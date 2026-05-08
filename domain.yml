@@ -44,23 +44,40 @@ responses:
 
 slots:
   audit_question:
-    type: text
-    initial_value: null
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
+
   farmarag_response:
-    type: text
-    initial_value: null
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
+
   provider_used:
-    type: text
-    initial_value: null
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
+
   fallback_triggered:
-    type: bool
-    initial_value: false
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
+
   correlation_id:
-    type: text
-    initial_value: null
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
+
   last_error_code:
-    type: text
-    initial_value: null
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
 
 actions:
   - action_call_farmarag

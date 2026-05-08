@@ -1,0 +1,22 @@
+version: "3.1"
+
+rules:
+  - rule: Saludar siempre que el usuario diga hola
+    steps:
+      - intent: saludo
+      - action: utter_greeting
+
+  - rule: Mostrar ayuda
+    steps:
+      - intent: ayuda
+      - action: utter_help
+
+  - rule: Procesar consulta con el RAG
+    steps:
+      - intent: consulta_auditoria
+      - action: action_call_farmarag
+
+  - rule: Manejar fuera de tema
+    steps:
+      - intent: fuera_tema
+      - action: utter_fuera_tema

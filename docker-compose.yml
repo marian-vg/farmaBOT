@@ -1,18 +1,16 @@
 services:
   rasa:
-    image: rasa/rasa:3.16
+    image: rasa/rasa:3.6.15-full
     ports:
       - "5005:5005"
-    environment:
-      RASA_LICENSE: "${RASA_LICENSE}"
-      GEMINI_API_KEY: "${GEMINI_API_KEY}"
     volumes:
-      - rasa_models:/app/models
+      - .:/app
+    user: "root"
+    entrypoint: ""
     command: >
       bash -c "rasa train && rasa run --enable-api --cors '*' --port 5005"
     depends_on:
       - actions
-      - farmaRAG
 
   actions:
     build:
@@ -22,29 +20,26 @@ services:
       - "5055:5055"
       - "5056:5056"
     environment:
-      RASA_LICENSE: "${RASA_LICENSE}"
-      GEMINI_API_KEY: "${GEMINI_API_KEY}"
+      GOOGLE_API_KEY: "${GEMINI_API_KEY}"
+    volumes:
+      - .:/app
     depends_on:
-      - farmaRAG
+      - farmarag
 
-  farmaRAG:
+  farmarag:
     build:
-      context: ../farmaRAG
-      dockerfile: ../farmaRAG/Dockerfile
+      context: ../RAG-project         
+      dockerfile: Dockerfile          
     ports:
       - "8000:8000"
     environment:
       GOOGLE_API_KEY: "${GOOGLE_API_KEY}"
-      RASA_LICENSE: "${RASA_LICENSE}"
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: ./frontend/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "5174:5174"
     depends_on:
       - rasa
-
-volumes:
-  rasa_models:

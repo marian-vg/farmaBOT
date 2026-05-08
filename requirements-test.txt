@@ -4,5 +4,5 @@ requests>=2.28.0
 pyyaml>=6.0
 responses>=0.21.0
 httpx>=0.24.0
-rasa>=3.16.0
-rasa-sdk>=3.16.0
+# Solo necesitamos el SDK aquí, no todo Rasa Pro
+rasa-sdk>=3.9.0,<3.10.0

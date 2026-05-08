@@ -1,21 +1,32 @@
 recipe: default.v1
 language: es
-assistant_id: farmarag_rasa
 
 pipeline:
-  - name: WhitespaceTokenizer
-  - name: RegexFeaturizer
-  - name: KeywordIntentClassifier
-    case_sensitive: false
-  - name: NLUCommandAdapter
-    user_input:
-      max_characters: 420
-  - name: CompactLLMCommandGenerator
-    llm:
-      model_group: default_llm
-    flow_retrieval:
-      embeddings:
-        model_group: default_embeddings
+- name: WhitespaceTokenizer
+- name: RegexFeaturizer
+- name: LexicalSyntacticFeaturizer
+- name: CountVectorsFeaturizer
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_history: 4
+- name: DIETClassifier
+  epochs: 100
+  constrain_similarities: true
+- name: EntitySynonymMapper
+- name: ResponseSelector
+  epochs: 100
+  constrain_similarities: true
+- name: FallbackClassifier
+  threshold: 0.4
 
 policies:
-  - name: FlowPolicy
+- name: MemoizationPolicy
+- name: RulePolicy
+  core_fallback_threshold: 0.4
+  core_fallback_action_name: "utter_fuera_tema"
+- name: TEDPolicy
+  max_history: 5
+  epochs: 100
+  constrain_similarities: true
+assistant_id: 20260508-010003-broad-dormer

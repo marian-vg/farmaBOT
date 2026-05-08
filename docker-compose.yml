@@ -1,18 +1,19 @@
 services:
-  rasa:
-    image: rasa/rasa:3.16
+  rag-project:
+    build:
+      context: ../RAG-project
+      dockerfile: ../RAG-project/Dockerfile
     ports:
-      - "5005:5005"
+      - "8000:8000"
     environment:
+      GOOGLE_API_KEY: "${GOOGLE_API_KEY}"
       RASA_LICENSE: "${RASA_LICENSE}"
-      GEMINI_API_KEY: "${GEMINI_API_KEY}"
-    volumes:
-      - rasa_models:/app/models
-    command: >
-      bash -c "rasa train && rasa run --enable-api --cors '*' --port 5005"
-    depends_on:
-      - actions
-      - farmaRAG
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request,sys; sys.exit(0) if urllib.request.urlopen('http://localhost:8000/health').getcode()==200 else sys.exit(1)\""]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
   actions:
     build:
@@ -20,31 +21,69 @@ services:
       dockerfile: actions/Dockerfile
     ports:
       - "5055:5055"
-      - "5056:5056"
     environment:
       RASA_LICENSE: "${RASA_LICENSE}"
       GEMINI_API_KEY: "${GEMINI_API_KEY}"
+      FARMARAG_ASK_URL: "http://rag-project:8000/ask"
+      FARMARAG_REQUEST_TIMEOUT_SECONDS: "75"
     depends_on:
-      - farmaRAG
+      rag-project:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request,sys; sys.exit(0) if urllib.request.urlopen('http://localhost:5055/health').getcode()==200 else sys.exit(1)\""]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
-  farmaRAG:
+  history-api:
     build:
-      context: ../farmaRAG
-      dockerfile: ../farmaRAG/Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
-      - "8000:8000"
+      - "5056:5056"
     environment:
-      GOOGLE_API_KEY: "${GOOGLE_API_KEY}"
+      HISTORY_DB_PATH: "/app/backend/data/history.db"
+    volumes:
+      - history_data:/app/backend/data
+  rasa:
+    image: rasa/rasa-pro:3.16.0
+    user: "0:0"
+    ports:
+      - "5005:5005"
+    environment:
       RASA_LICENSE: "${RASA_LICENSE}"
+      GEMINI_API_KEY: "${GEMINI_API_KEY}"
+    volumes:
+      - ./:/app
+      - rasa_cache:/app/.rasa
+      - rasa_models:/app/models
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - 'rasa train && rasa run --enable-api --cors "*" --port 5005 --request-timeout 120 --response-timeout 120'
+    depends_on:
+      actions:
+        condition: service_healthy
+      rag-project:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request,sys; sys.exit(0) if urllib.request.urlopen('http://localhost:5005/status').getcode()==200 else sys.exit(1)\""]
+      interval: 20s
+      timeout: 5s
+      retries: 6
+      start_period: 40s
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: ./frontend/Dockerfile
+      dockerfile: ./Dockerfile
     ports:
       - "5174:5174"
     depends_on:
-      - rasa
+      rasa:
+        condition: service_healthy
 
 volumes:
+  rasa_cache:
   rasa_models:
+  history_data:

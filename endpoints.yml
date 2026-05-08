@@ -1,5 +1,5 @@
 action_endpoint:
-  url: http://localhost:5055/webhook
+  url: http://actions:5055/webhook
 
 model_groups:
   - id: default_llm
@@ -10,7 +10,7 @@ model_groups:
         timeout: 60
   - id: default_embeddings
     models:
-      - provider: ollama
-        model: nomic-embed-text:latest
-        api_base: http://localhost:11434
-        timeout: 10
+      - provider: gemini
+        model: gemini-embedding-001
+        api_key: ${GEMINI_API_KEY}
+        timeout: 20

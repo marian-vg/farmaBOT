@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import os
 import uuid
 import time
 from typing import Any
@@ -13,10 +14,10 @@ from rasa_sdk.executor import CollectingDispatcher
 
 logger = logging.getLogger(__name__)
 
-FARMARAG_ASK_URL = "http://127.0.0.1:8000/ask"
-REQUEST_TIMEOUT_SECONDS = 25
-MAX_RETRIES = 3
-RETRY_BACKOFF_FACTOR = 1.5
+FARMARAG_ASK_URL = os.getenv("FARMARAG_ASK_URL", "http://rag-project:8000/ask")
+REQUEST_TIMEOUT_SECONDS = float(os.getenv("FARMARAG_REQUEST_TIMEOUT_SECONDS", "75"))
+MAX_RETRIES = int(os.getenv("FARMARAG_MAX_RETRIES", "3"))
+RETRY_BACKOFF_FACTOR = float(os.getenv("FARMARAG_RETRY_BACKOFF_FACTOR", "1.5"))
 
 
 class ActionCallFarmaRAG(Action):

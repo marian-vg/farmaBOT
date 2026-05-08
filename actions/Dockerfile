@@ -1,17 +1,17 @@
-FROM python:3.11-slim
+FROM rasa/rasa-sdk:3.16.0
 
 WORKDIR /app
 
-COPY requirements-test.txt .
+USER root
 
-RUN pip install --no-cache-dir -r requirements-test.txt
+COPY actions/requirements-actions.txt /app/requirements-actions.txt
 
-RUN pip install --no-cache-dir flask flask-cors
+RUN pip install --no-cache-dir -r /app/requirements-actions.txt
 
 COPY actions/ ./actions/
 
-COPY backend/ ./backend/
+USER 1001
 
-EXPOSE 5055 5056
+EXPOSE 5055
 
-CMD ["bash", "-c", "rasa run actions & python backend/history_server.py"]
+CMD ["start", "--actions", "actions", "--port", "5055"]

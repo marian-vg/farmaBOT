@@ -1,0 +1,8 @@
+metrics:
+  enabled: true
+  rasa_user_id: db3428f80a064757b88ff23863434761
+  date: '2026-05-08 21:53:56.710358'
+traits:
+  enabled: true
+  rasa_user_id: db3428f80a064757b88ff23863434761
+  date: 2026-05-08 21:53:56.710358

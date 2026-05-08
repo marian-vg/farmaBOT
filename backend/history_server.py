@@ -10,7 +10,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-DATABASE = os.path.join(os.path.dirname(__file__), 'history.db')
+DATABASE = os.getenv('HISTORY_DB_PATH', os.path.join(os.path.dirname(__file__), 'history.db'))
 
 
 def get_db() -> sqlite3.Connection:

@@ -2,7 +2,7 @@ import type { RasaResponse, RasaMessagePayload } from './types';
 
 const RASA_BASE_URL = 'http://localhost:5005';
 const RASA_WEBHOOK_URL = `${RASA_BASE_URL}/webhooks/rest/webhook`;
-const REQUEST_TIMEOUT_MS = 45000;
+const REQUEST_TIMEOUT_MS = 90000;
 
 export class RasaClient {
   private senderId: string;

@@ -71,6 +71,37 @@ export RASA_LICENSE="tu-licencia-aqui"
 export GEMINI_API_KEY="tu-api-key-aqui"
 ```
 
+## Levantar el sistema (alternativo - Makefile)
+
+Si tenés `make` instalado (Git Bash, Chocolatey, MSYS2, etc.), podés usar el Makefile para levantar todos los servicios de una vez:
+
+```bash
+cd farmarag-rasa
+make start-all
+```
+
+O levantar servicios individualmente:
+
+```bash
+make start-farmarag   # Solo FarmaRAG (backend RAG)
+make start-rasa       # Solo Rasa server
+make start-frontend   # Solo Frontend
+```
+
+**Detener servicios:**
+```bash
+make stop
+```
+
+**Ver ayuda:**
+```bash
+make help
+```
+
+Para más opciones: `make help`
+
+---
+
 ## Levantar el sistema (manual)
 
 Se necesitan **5 servicios** corriendo simultáneamente:

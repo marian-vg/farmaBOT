@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Paperclip, Send } from 'lucide-svelte';
+  import { Send } from 'lucide-svelte';
 
   interface Props {
     value: string;

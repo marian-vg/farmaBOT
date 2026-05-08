@@ -84,7 +84,7 @@ class ActionCallFarmaRAG(Action):
                 SlotSet("last_error_code", "empty_question"),
             ]
 
-        payload = {"question": user_message}
+        payload = {"question": user_message, "provider": "gemini"}
         headers = {
             "X-Correlation-ID": correlation_id,
             "Content-Type": "application/json",

@@ -208,7 +208,6 @@ Es posible levantar todo el sistema con Docker Compose. Esto levanta **5 servici
 
 - Docker Engine 20.10+
 - Docker Compose 2.0+
-- Credenciales (RASA_LICENSE, GEMINI_API_KEY, GOOGLE_API_KEY)
 
 ### Configuración
 
